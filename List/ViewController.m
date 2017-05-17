@@ -22,6 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.todos = [[NSMutableArray alloc]init];
+    self.tableView.allowsMultipleSelectionDuringEditing = NO;
 }
 
 
@@ -57,7 +58,10 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [self.todos removeObjectAtIndex:indexPath.row];
+        [self.tableView reloadData];
+    }
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
